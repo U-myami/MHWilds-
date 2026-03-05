@@ -1,0 +1,4 @@
+画像はWebP形式
+300KB以下にすること
+lazy loading
+

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>調査報告詳細 - MHWilds 調査記録室</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <style>
+        .detail-container {
+            background: var(--card-brown);
+            border: 2px solid var(--accent-gold);
+            padding: 30px;
+            margin-top: 30px;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .detail-container::before {
+            content: "GUILD OFFICIAL REPORT";
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.75rem;
+            color: rgba(212, 175, 55, 0.4);
+            letter-spacing: 3px;
+            font-family: serif;
+        }
+
+        .monster-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        .detail-img-box {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #0a0806;
+            border: 1px solid var(--accent-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .detail-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .monster-title-area h2 {
+            font-size: 2.8rem;
+            margin: 5px 0;
+            color: var(--accent-gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .monster-type-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1rem;
+            clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 15px;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        .info-label {
+            color: var(--accent-gold);
+            border-right: 1px solid var(--border-color);
+        }
+
+        .weakness-section {
+            margin-top: 25px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .weakness-grid {
+            display: flex;
+            justify-content: space-between;
+            max-width: 350px;
+            margin-top: 10px;
+        }
+
+        .attribute-badge {
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        .attribute-icon {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .description-box {
+            line-height: 2;
+            color: var(--text-ivory);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 25px;
+            border-radius: 4px;
+            border-left: 4px solid var(--accent-gold);
+            font-family: serif;
+        }
+
+        .tips-area {
+            margin-top: 25px;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed var(--accent-gold);
+            border-radius: 4px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 40px auto;
+            padding: 10px 40px;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            text-decoration: none;
+            transition: 0.3s;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .back-btn:hover {
+            background: var(--accent-gold);
+            color: var(--bg-dark);
+        }
+
+        @media (max-width: 768px) {
+            .monster-header { grid-template-columns: 1fr; gap: 20px; }
+            .monster-title-area h2 { font-size: 2rem; }
+            .weakness-grid { max-width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="../index.html" style="color:inherit; text-decoration:none;">MHWilds 調査記録室</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="../guide/index.html">ガイド</a></li>
+                    <li><a href="index.html" style="color:var(--text-ivory); border-bottom: 2px solid var(--accent-gold);">モンスター</a></li>
+                    <li><a href="../equipment/index.html">装備</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="monster-detail-content">
+            <p style="text-align:center; padding:100px; color:var(--accent-gold);">記録を照合中...</p>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="index.html" class="back-btn">← 調査記録一覧へ戻る</a>
+        </div>
+    </main>
+
+    <script src="../data/monsters.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const monsterId = params.get('id');
+            const contentArea = document.getElementById('monster-detail-content');
+
+            function getStars(rating) {
+                const goldStars = '★'.repeat(rating);
+                const emptyStars = '<span style="color:#444;">★</span>'.repeat(3 - rating);
+                return `<span style="color:var(--accent-gold);">${goldStars}</span>${emptyStars}`;
+            }
+
+            const monster = MONSTERS.find(m => m.id === monsterId);
+
+            if (monster) {
+                document.title = `${monster.name} - 調査報告詳細`;
+                
+                contentArea.innerHTML = `
+                    <div class="detail-container">
+                        <div class="monster-header">
+                            <div class="detail-img-box">
+                                <img src="../assets/images/monsters/${monster.id}.webp" 
+                                     alt="${monster.name}"
+                                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                                <div class="no-img-text" style="display:none; text-align:center; padding:20px;">
+                                    <span style="font-size:3rem; opacity:0.2;">📜</span><br>
+                                    <span style="color:#5d4037;">[ ${monster.name} ]<br>外見情報の記録を待機中...</span>
+                                </div>
+                            </div>
+
+                            <div class="monster-title-area">
+                                <p style="margin:0; font-size:0.8rem; color:var(--accent-gold); opacity:0.7;">
+                                    DANGER LEVEL: ${monster.threat}
+                                </p>
+                                <h2>${monster.name}</h2>
+                                <span class="monster-type-tag">${monster.type}</span>
+                                
+                                <div class="info-grid">
+                                    <div class="info-label">生息地</div>
+                                    <div>${monster.locations.join(' / ')}</div>
+                                </div>
+
+                                <div class="weakness-section">
+                                    <p style="margin:0; font-size:0.75rem; color:var(--accent-gold); border-bottom:1px solid #444; padding-bottom:5px;">■ 属性有効度</p>
+                                    <div class="weakness-grid">
+                                        <div class="attribute-badge"><span class="attribute-icon">🔥</span>${getStars(monster.weakness.fire)}</div>
+                                        <div class="attribute-badge"><span class="attribute-icon">💧</span>${getStars(monster.weakness.water)}</div>
+                                        <div class="attribute-badge"><span class="attribute-icon">⚡</span>${getStars(monster.weakness.thunder)}</div>
+                                        <div class="attribute-badge"><span class="attribute-icon">❄️</span>${getStars(monster.weakness.ice)}</div>
+                                        <div class="attribute-badge"><span class="attribute-icon">🐉</span>${getStars(monster.weakness.dragon)}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="description-section">
+                            <h3 style="color:var(--accent-gold); font-size:1.2rem; margin-bottom:15px; display:flex; align-items:center;">
+                                <span style="margin-right:10px;">◆</span> 生態調査報告
+                            </h3>
+                            <div class="description-box">
+                                ${monster.description}
+                            </div>
+                        </div>
+
+                        <div class="tips-area">
+                            <strong style="color:var(--accent-gold); display:block; margin-bottom:10px;">
+                                💡 編纂者による狩猟指針:
+                            </strong>
+                            <div style="font-size:0.95rem; line-height:1.6;">
+                                ${monster.tips}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                contentArea.innerHTML = `
+                    <div class="detail-container" style="text-align:center; padding:100px 20px;">
+                        <h2 style="color:var(--accent-gold);">NO DATA FOUND</h2>
+                        <p>指定された個体の調査記録は未登録、もしくは欠落しています。</p>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>
