@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+/* --- 共通変数（TOPのデザインをベースに固定） --- */
+:root {
+    --gold: #e2c07d;            /* メインの金色 */
+    --header-gold: #e0d8c0;     /* ロゴ・ナビの淡い金色 */
+    --line-gold: #8b6d3d;       /* ヘッダー下線の濃い金色 */
+    --bg-dark: #0a0806;         /* 全体の背景色 */
+    --header-height: 80px;      /* ヘッダーの高さをピクセルで固定 */
+}
+
+/* --- 全体レイアウトのズレ防止 --- */
+body {
+    background-color: var(--bg-dark);
+    margin: 0;
+    padding: 0;
+    padding-top: var(--header-height); /* ヘッダー固定分の余白を強制確保 */
+    font-family: 'HiraMinProN-W6', "Sawarabi Mincho", serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+/* --- 共有ヘッダー：固定デザイン --- */
+header {
+    position: fixed; /* 常に画面上部に固定 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height); /* 高さを80pxに固定 */
+    background-color: rgba(0, 0, 0, 0.95);
+    border-bottom: 2px solid var(--line-gold);
+    z-index: 9999; /* 他の要素より常に上に表示 */
+    display: flex;
+    align-items: center; /* 内部要素を上下中央揃え */
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between; /* ロゴを左、ナビを右に配置 */
+    align-items: center;
+    width: 100%;
+}
+
+/* ロゴエリア */
+header h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.8rem;
+    line-height: 1; /* 高さに影響を与えないよう設定 */
+}
+
+header h1 a {
+    color: var(--header-gold);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+}
+
+/* ナビゲーションエリア */
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 40px; /* メニュー間の距離を固定 */
+}
+
+header nav ul li a {
+    color: var(--header-gold);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    line-height: var(--header-height); /* 文字のクリック範囲をヘッダー高さに合わせる */
+    display: block;
+}
+
+header nav ul li a:hover,
+header nav ul li a.active {
+    color: var(--gold);
+    font-weight: bold;
+}
+
+/* フッター共通 */
+footer {
+    padding: 30px 0;
+    text-align: center;
+    border-top: 1px solid #5d4037;
+    color: #777;
+    font-size: 0.9rem;
+    margin-top: 50px;
+}

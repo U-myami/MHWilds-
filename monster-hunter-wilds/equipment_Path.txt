@@ -1,0 +1,21 @@
+　　<script src="../data/armors/arm.js"></script>
+　　<script src="../data/armors/body.js"></script>
+　　<script src="../data/armors/head.js"></script>
+　　<script src="../data/armors/leg.js"></script>
+　　<script src="../data/armors/waist.js"></script>
+
+　　<script src="../data/weapons/bow.js"></script>
+　　<script src="../data/weapons/charge_blade.js"></script>
+　　<script src="../data/weapons/dual_blades.js"></script>
+　　<script src="../data/weapons/greatsword.js"></script>
+　　<script src="../data/weapons/gun_lance.js"></script>
+　　<script src="../data/weapons/hammer.js"></script>
+　　<script src="../data/weapons/heavy_bowgun.js"></script>
+　　<script src="../data/weapons/hunting_horn.js"></script>
+　　<script src="../data/weapons/insect_glaive.js"></script>
+　　<script src="../data/weapons/lance.js"></script>
+　　<script src="../data/weapons/light_bowgun.js"></script>
+　　<script src="../data/weapons/longsword.js"></script>
+　　<script src="../data/weapons/switch_axe.js"></script>
+　　<script src="../data/weapons/sword_and_sheild.js"></script>
+    <script src="../data/equipment_master.js"></script>

@@ -1,0 +1,12 @@
+const DATA_DUAL_BLADES = [
+    { id: "db-01", name: "調査団正式大剣", sub_category: "双剣", rarity: 1, skills: ["攻撃 Lv.1"], obtained: "初期装備" },
+    { id: "db-02", name: "チャタカ・グラッパー", sub_category: "双剣", rarity: 2, skills: ["体力回復量UP Lv.1"], obtained: "チャタカブラ素材" },
+    { id: "db-03", name: "ドシャ・インパクト", sub_category: "双剣", rarity: 2, skills: ["不屈 Lv.1"], obtained: "ドシャグマ素材" },
+    { id: "db-04", name: "ケマト・ブレイズ", sub_category: "双剣", rarity: 3, skills: ["火属性攻撃強化 Lv.1"], obtained: "ケマトリス素材" },
+    { id: "db-05", name: "ダハド・カッター", sub_category: "双剣", rarity: 3, skills: ["回避性能 Lv.1"], obtained: "ジン・ダハド素材" },
+    { id: "db-06", name: "バリナ・パルサー", sub_category: "双剣", rarity: 4, skills: ["氷属性攻撃強化 Lv.1"], obtained: "ラバラ・バリナ素材" },
+    { id: "db-07", name: "アルシュブレイド", sub_category: "双剣", rarity: 4, skills: ["集中 Lv.1"], obtained: "アルシュベルド素材" },
+    { id: "db-08", name: "レド・レドス", sub_category: "双剣", rarity: 5, skills: ["弱点特効 Lv.1"], obtained: "リオレウス素材" },
+    { id: "db-09", name: "ダウ・エクスプレス", sub_category: "双剣", rarity: 5, skills: ["雷属性攻撃強化 Lv.2"], obtained: "レ・ダウ素材" },
+    { id: "db-10", name: "トゥナ・カタストロフ", sub_category: "双剣", rarity: 6, skills: ["超会心 Lv.1"], obtained: "ウズ・トゥナ素材" }
+].map(d => ({...d, category: "武器"}));
