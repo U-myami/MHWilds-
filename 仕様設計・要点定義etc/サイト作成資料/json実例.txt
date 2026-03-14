@@ -1,0 +1,119 @@
+HTML
+
+<script src="../../data/monsters.js"></script>
+<script src="../../data/drops.js"></script>
+<script src="../../js/monster.js"></script>
+
+
+monster.js
+
+const MONSTERS = [
+  {
+    id: "velkhana",
+    name: "ヴェルカーナ",
+    type: "古龍種",
+    description: "氷を操る古龍。",
+    weakElements: ["fire"],
+    weakParts: ["head", "forelegs"],
+    hp: 23000,
+    stunValue: 300,
+    capturable: false,
+    locations: ["ice-region"],
+    statusEffect: {
+      poison: true,
+      sleep: true,
+      paralysis: false,
+      blast: true
+    }
+  }
+];
+
+
+drops.js
+
+const DROPS = [
+  {
+    id: "drop001",
+    monsterId: "velkhana",
+    itemName: "氷龍の堅殻",
+    rank: "上位",
+    dropRate: 35
+  },
+  {
+    id: "drop002",
+    monsterId: "velkhana",
+    itemName: "氷龍の宝玉",
+    rank: "上位",
+    dropRate: 3
+  }
+];
+
+
+equipments.js
+
+const EQUIPMENT = [
+  {
+    id: "ls001",
+    name: "氷刃ロングソード",
+    category: "longsword",
+    attack: 950,
+    element: {
+      type: "ice",
+      value: 420
+    },
+    affinity: 10,
+    slots: [3, 2],
+    skills: ["ice-attack-up"],
+    materials: ["mat001", "mat002"]
+  }
+];
+
+
+material.js
+
+const MATERIALS = [
+  {
+    id: "mat001",
+    name: "氷龍の堅殻",
+    sourceMonsterId: "velkhana"
+  },
+  {
+    id: "mat002",
+    name: "氷龍の宝玉",
+    sourceMonsterId: "velkhana"
+  }
+];
+
+
+表示用.js(monster.js)
+
+const params = new URLSearchParams(window.location.search);
+const monsterId = params.get("id");
+
+const monster = MONSTERS.find(m => m.id === monsterId);
+
+if (monster) {
+  document.getElementById("name").textContent = monster.name;
+  document.getElementById("type").textContent = monster.type;
+  document.getElementById("hp").textContent = monster.hp;
+
+  // ドロップ抽出
+  const drops = DROPS.filter(d => d.monsterId === monsterId);
+
+  const dropList = document.getElementById("drops");
+  drops.forEach(drop => {
+    const li = document.createElement("li");
+    li.textContent = `${drop.itemName} (${drop.dropRate}%)`;
+    dropList.appendChild(li);
+  });
+}
+
+
+HTML
+
+<h1 id="name"></h1>
+<p>種族: <span id="type"></span></p>
+<p>HP: <span id="hp"></span></p>
+
+<h2>ドロップ</h2>
+<ul id="drops"></ul>

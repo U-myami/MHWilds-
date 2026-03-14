@@ -1,0 +1,196 @@
+●データ構造の明文化(JSON)
+
+    /* モンスター(monster.json) */
+
+    { 
+      "id": "monster001",
+      "name": "リオレウス",
+      "element": "fire",
+      "maps": ["scarlet_forest"],
+      "weakness": [
+        { "element": "dragon", "rate": 3 },
+        { "element": "thunder", "rate": 2 }
+      ],
+      "drops": [
+        { "itemId": "item001", "rate": 35 },
+        { "itemId": "item002", "rate": 40 },
+        { "itemId": "item003", "rate": 10 },
+        { "itemId": "item004", "rate": 60 }
+      ],
+      "stats": {
+        "hp": 2000,
+        "atk": 300,
+        "def": 200,
+        "elementDef": 100,
+        "stun": 200
+      }
+    }
+
+
+    /* 武器(weapon.json) */
+
+    {
+      "id": "weapon001",
+      "name": "オストランツァ",
+      "type": "long_sword",
+      "rarity": 8,
+      "element": {
+        "type": "water",
+        "value": 330
+      },
+      "stats": {
+        "attack": 1190,
+        "affinity": 20,
+        "sharpness": {
+          "red": 50,
+          "orange": 60,
+          "yellow": 70,
+          "green": 80,
+          "blue": 60,
+          "white": 30,
+          "purple": 0
+        }
+      },
+      "skills": [
+        { "skillId": "critical_eye", "level": 2 }
+      ],
+      "slots": [3, 2],
+      "ornaments": [
+        { "ornamentId": "attack_jewel_2" }
+      ]
+    }
+
+
+    /* 防具(armor.json) */
+
+    {
+      "id": "armor001",
+      "name": "レウスメイルα",
+      "slot": "chest",
+      "rarity": 8,
+      "stats": {
+        "defMin": 48,
+        "defMax": 74,
+        "resistance": {
+          "fire": 3,
+          "water": 1,
+          "thunder": -2,
+          "ice": 1,
+          "dragon": -3
+        }
+      },
+      "skills": [
+        { "skillId": "attack_boost", "level": 2 },
+        { "skillId": "fire_attack", "level": 1 }
+      ],
+      "slots": [3, 2, 1],
+      "ornaments": [
+        { "ornamentId": "expert_jewel_2" }
+      ],
+      "seriesId": "rathalos_series"
+    }
+
+
+    /* シリーズ効果(series.json) */
+
+    {
+      "id": "rathalos_series",
+      "name": "火竜の闘志",
+      "tiers": [
+        {
+          "requiredParts": 2,
+          "effects": [
+            { "type": "attackBoost", "value": 10 }
+          ]
+        },
+        {
+          "requiredParts": 4,
+          "effects": [
+            { "type": "attackBoost", "value": 20 },
+            { "type": "fireBoost", "value": 1 }
+          ]
+        }
+      ]
+    }
+
+
+    /* スキル(skill.json) */
+
+    [
+      {
+        "id": "attack_boost",
+        "name": "攻撃",
+        "maxLevel": 7,
+        "levels": [
+          { "level": 1, "effects": [{ "type": "attackUp", "value": 3 }] },
+          { "level": 2, "effects": [{ "type": "attackUp", "value": 6 }] },
+          { "level": 3, "effects": [{ "type": "attackUp", "value": 9 }] },
+          { "level": 4, "effects": [{ "type": "attackUp", "value": 12 }] },
+          { "level": 5, "effects": [{ "type": "attackUp", "value": 15 }] },
+          { "level": 6, "effects": [{ "type": "attackUp", "value": 18 }] },
+          {
+            "level": 7,
+            "effects": [
+              { "type": "attackUp", "value": 21 },
+              { "type": "affinityUp", "value": 5 }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "critical_eye",
+        "name": "見切り",
+        "maxLevel": 7,
+        "levels": [
+          { "level": 1, "effects": [{ "type": "affinityUp", "value": 5 }] },
+          { "level": 2, "effects": [{ "type": "affinityUp", "value": 10 }] },
+          { "level": 3, "effects": [{ "type": "affinityUp", "value": 15 }] },
+          { "level": 4, "effects": [{ "type": "affinityUp", "value": 20 }] },
+          { "level": 5, "effects": [{ "type": "affinityUp", "value": 25 }] },
+          { "level": 6, "effects": [{ "type": "affinityUp", "value": 30 }] },
+          { "level": 7, "effects": [{ "type": "affinityUp", "value": 40 }] }
+        ]
+      },
+      {
+        "id": "fire_attack",
+        "name": "火属性攻撃強化",
+        "maxLevel": 5,
+        "levels": [
+          { "level": 1, "effects": [{ "type": "fireUp", "value": 30 }] },
+          { "level": 2, "effects": [{ "type": "fireUp", "value": 60 }] },
+          { "level": 3, "effects": [{ "type": "fireUp", "value": 100 }] },
+          { "level": 4, "effects": [{ "type": "fireUp", "value": 130 }] },
+          { "level": 5, "effects": [{ "type": "fireUp", "value": 150 }] }
+        ]
+      }
+    ]
+
+    /* 装飾品(ornament.json) */
+
+    [
+      {
+        "id": "attack_jewel_2",
+        "name": "攻撃珠【2】",
+        "slotSize": 2,
+        "skills": [
+          { "skillId": "attack_boost", "level": 1 }
+        ]
+      },
+      {
+        "id": "expert_jewel_2",
+        "name": "達人珠【2】",
+        "slotSize": 2,
+        "skills": [
+          { "skillId": "critical_eye", "level": 1 }
+        ]
+      },
+      {
+        "id": "fire_jewel_1",
+        "name": "火炎珠【1】",
+        "slotSize": 1,
+        "skills": [
+          { "skillId": "fire_attack", "level": 1 }
+        ]
+      }
+    ]
+

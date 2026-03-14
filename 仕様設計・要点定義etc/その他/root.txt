@@ -1,0 +1,35 @@
+root/
+│
+├─ index.html
+├─ monsters/
+│   ├─ index.html
+│   └─ detail.html
+│
+├─ weapons/
+│   ├─ index.html
+│   └─ detail.html
+│
+├─ css/
+│   ├─ reset.css
+│   ├─ layout.css
+│   ├─ components.css
+│   └─ responsive.css
+│
+├─ js/
+│   ├─ api.js
+│   ├─ router.js
+│   ├─ render.js
+│   ├─ filter.js
+│   └─ storage.js
+│
+├─ data/
+│   ├─ monster.json
+│   ├─ weapon.json
+│   ├─ armor.json
+│   ├─ skill.json
+│   └─ series.json
+│
+└─ docs/
+    ├─ 要件定義書.pdf
+    ├─ 画面設計書.pdf
+    └─ 設計意図.md
